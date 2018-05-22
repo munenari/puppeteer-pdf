@@ -1,43 +1,58 @@
 # puppeteer docker image
 
+just generate PDF file with puppeteer and chromium
+
+pdf source can be local file (-f), pipe (-f use stdin) or accessible url (-u)
+
 ## usage
 
-build
+### pull image
+
+use `print-to-pdf` alias that links to `print-to-pdf.js`
 
 ```bash
-docker build -t puppeteer .
+$ docker run -it --rm -v `pwd`:/data munenari/puppeteer-pdf \
+	print-to-pdf -u https://www.example.com -o /data/output.pdf
 ```
 
-run
+### build yourself
+
+- build
 
 ```bash
-docker run -it --rm -v `pwd`:/data puppeteer \
+$ docker build -t puppeteer .
+```
+
+- run
+
+```bash
+$ docker run -it --rm -v `pwd`:/data puppeteer \
 	print-to-pdf -f /etc/hostname -o /data/output.pdf --scale 2
 ```
 
 ```bash
-docker run -it --rm -v `pwd`:/data puppeteer \
+$ docker run -it --rm -v `pwd`:/data puppeteer \
 	print-to-pdf -u https://example.com -o /data/output.pdf
 ```
 
-### script example
+### script example (local usage)
 
 from file
 
-```
-echo '<meta charset="utf8">今日はいい天気ですね' | ./print-to-pdf.js -f '/dev/stdin'
+```bash
+$ echo '<meta charset="utf8">今日はいい天気ですね' | ./print-to-pdf.js -f '/dev/stdin'
 ```
 
 from url (file: scheme is also available)
 
-```
-./print-to-pdf.js -u 'https://www.google.com'
+```bash
+$ ./print-to-pdf.js -u 'https://www.google.com'
 ```
 
 when you are using macOS, -c option may help you
 
-```
-./print-to-pdf.js -u 'https://www.google.com' -c /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+```bash
+$ ./print-to-pdf.js -u 'https://www.google.com' -c /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 ```
 
 ## available options
