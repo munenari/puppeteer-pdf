@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "commander": "^2.15.1",
+    "puppeteer": "^1.4.0"
+  }
+}
